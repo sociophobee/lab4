@@ -60,6 +60,27 @@ def process_words_starting_with_vowel():
         print(f"\n[Помилка] Не вдалося записати дані у файл '{FILE_2}': {e}\n")
 
 
+# ==========================================
+# ФУНКЦІЯ СТУДЕНТА 2 (Дмитро) - Частина в)
+# ==========================================
+def print_result_file():
+    """Частина в) Читання вмісту файлу TF16_2 та виведення його по рядках"""
+    try:
+        with open(FILE_2, "r", encoding="utf-8") as file:
+            print(f"\n--- Вміст файлу '{FILE_2}' (слова на голосну літеру) ---")
+            lines = file.readlines()
+            if not lines:
+                print("Файл порожній.")
+            else:
+                for index, line in enumerate(lines, start=1):
+                    print(f"{index}. {line.strip()}")
+            print("-------------------------------------------------------\n")
+    except FileNotFoundError:
+        print(f"\n[Помилка] Файл '{FILE_2}' не знайдено! Спочатку виконайте пункт 2.\n")
+    except IOError as e:
+        print(f"\n[Помилка] Не вдалося прочитати файл '{FILE_2}': {e}\n")
+
+
 def main():
     while True:
         print(" ОБРОБЛЕННЯ ТЕКСТОВИХ ФАЙЛІВ (Варіант 13) ")
@@ -76,7 +97,7 @@ def main():
         elif choice == '2':
             process_words_starting_with_vowel()
         elif choice == '3':
-            print("\n=> Функція ще в розробці (завдання Студента 2).\n")
+            print_result_file()
         elif choice == '4':
             print("Роботу програми завершено.")
             break
