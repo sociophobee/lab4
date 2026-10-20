@@ -1,3 +1,5 @@
+import string
+
 # Імена файлів за варіантом 13
 FILE_1 = "TF16_1.txt"
 FILE_2 = "TF16_2.txt"
@@ -21,6 +23,43 @@ def create_initial_file():
         print(f"\n[Помилка] Не вдалося створити або записати файл '{FILE_1}': {e}\n")
 
 
+# ==========================================
+# ФУНКЦІЯ СТУДЕНТА 1 (Анастасія) - Частина б)
+# ==========================================
+def process_words_starting_with_vowel():
+    """Частина б) Читання TF16_1, пошук слів на голосну літеру та запис у TF16_2"""
+    vowels = "аеєиіїоуюяaeiouy"
+    punctuation = string.punctuation + "—«»…"
+    found_words = []
+
+    try:
+        with open(FILE_1, "r", encoding="utf-8") as file_in:
+            for line in file_in:
+                for char in punctuation:
+                    line = line.replace(char, " ")
+                
+                words = line.split()
+                for word in words:
+                    if word and word[0].lower() in vowels:
+                        found_words.append(word)
+                        
+    except FileNotFoundError:
+        print(f"\n[Помилка] Файл '{FILE_1}' не знайдено! Спочатку виконайте пункт 1.\n")
+        return
+    except IOError as e:
+        print(f"\n[Помилка] Помилка читання файлу '{FILE_1}': {e}\n")
+        return
+
+    try:
+        with open(FILE_2, "w", encoding="utf-8") as file_out:
+            for word in found_words:
+                file_out.write(word + "\n")
+        print(f"\n[Успіх] Оброблення завершено! Знайдено слів на голосну: {len(found_words)}.")
+        print(f"Результат записано у файл '{FILE_2}'.\n")
+    except IOError as e:
+        print(f"\n[Помилка] Не вдалося записати дані у файл '{FILE_2}': {e}\n")
+
+
 def main():
     while True:
         print(" ОБРОБЛЕННЯ ТЕКСТОВИХ ФАЙЛІВ (Варіант 13) ")
@@ -35,7 +74,7 @@ def main():
         if choice == '1':
             create_initial_file()
         elif choice == '2':
-            print("\n=> Функція ще в розробці (завдання Студента 1).\n")
+            process_words_starting_with_vowel()
         elif choice == '3':
             print("\n=> Функція ще в розробці (завдання Студента 2).\n")
         elif choice == '4':
